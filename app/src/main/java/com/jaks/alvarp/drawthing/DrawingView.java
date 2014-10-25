@@ -149,26 +149,21 @@ public class DrawingView extends View
         float touchX = event.getX();
         float touchY = event.getY();
         //draw the square now
-        drawCanvas.drawRect(pixelatr.min(touchX), pixelatr.max(touchY), pixelatr.max(touchX),pixelatr.min(touchY), drawPaint);
 
 
-        /*
+
         switch (event.getAction())
         {
             case MotionEvent.ACTION_DOWN://1st pos
-                drawPath.moveTo(touchX, touchY);
                 break;
             case MotionEvent.ACTION_MOVE://records the positions and directions.
-                drawPath.lineTo(touchX, touchY);
+                drawCanvas.drawRect(pixelatr.min(touchX), pixelatr.max(touchY), pixelatr.max(touchX),pixelatr.min(touchY), drawPaint);
                 break;
             case MotionEvent.ACTION_UP://places it.
-                drawCanvas.drawPath(drawPath, drawPaint);
-                drawPath.reset();
                 break;
             default:
                 return false;
         }
-        */
         invalidate();
         return true;
     }
