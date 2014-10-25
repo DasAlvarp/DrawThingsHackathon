@@ -21,7 +21,7 @@ public class DrawScreen extends Activity implements OnClickListener
 {
     private float smallBrush, mediumBrush, largeBrush;
     private DrawingView drawView;
-    private ImageButton currPaint, drawBtn, eraseBtn;
+    private ImageButton currPaint, drawBtn, eraseBtn, newBtn;
 
 
 
@@ -40,7 +40,7 @@ public class DrawScreen extends Activity implements OnClickListener
             currPaint=(ImageButton)view;
             drawView.setErase(false);
             drawView.setBrushSize(drawView.getLastBrushSize());
-            
+
         }
 
 
@@ -73,6 +73,9 @@ public class DrawScreen extends Activity implements OnClickListener
 
         eraseBtn = (ImageButton)findViewById(R.id.erase_btn);
         eraseBtn.setOnClickListener(this);
+
+        newBtn = (ImageButton)findViewById(R.id.new_btn);
+        newBtn.setOnClickListener(this);
     }
 
 
@@ -157,6 +160,22 @@ public class DrawScreen extends Activity implements OnClickListener
             });
             brushDialog.show();
         }
+        else if(view.getId()==R.id.new_btn){
+            AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
+            newDialog.setTitle("New drawing");
+            newDialog.setMessage("Start new drawing (you will lose the current drawing)?");
+            newDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface dialog, int which){
+                    drawView.startNew();
+                    dialog.dismiss();
+                }
+            });
+            newDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface dialog, int which){
+                    dialog.cancel();
+                }
+            });
+            newDialog.show();        }
 
     }
 

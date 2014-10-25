@@ -39,8 +39,15 @@ public class DrawingView extends View
         else drawPaint.setXfermode(null);
     }
 
-    public DrawingView(Context context) {
+    public DrawingView(Context context)
+    {
         super(context);
+    }
+
+    public void startNew()
+    {
+        drawCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
+        invalidate();
     }
 
     public DrawingView(Context context, AttributeSet attrs)
