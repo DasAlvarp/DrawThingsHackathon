@@ -30,6 +30,12 @@ public class DrawingView extends View
     //canvas bitmap
     private Bitmap canvasBitmap;
 
+    private DrawPixel pixelatr;
+
+
+    private float pixelBig;
+
+
     private boolean erase=false;
 
     public void setErase(boolean isErase)
@@ -72,13 +78,14 @@ public class DrawingView extends View
 
         drawPaint.setColor(paintColor);
 
-        drawPaint.setAntiAlias(true);
+        drawPaint.setAntiAlias(false);
         drawPaint.setStrokeWidth(20);
         drawPaint.setStyle(Paint.Style.STROKE);
-        drawPaint.setStrokeJoin(Paint.Join.ROUND);
-        drawPaint.setStrokeCap(Paint.Cap.ROUND);
+        drawPaint.setStrokeJoin(Paint.Join.MITER);
+        drawPaint.setStrokeCap(Paint.Cap.SQUARE);
 
         canvasPaint = new Paint(Paint.DITHER_FLAG);
+
 
 
 
@@ -89,25 +96,37 @@ public class DrawingView extends View
         //get drawing area setup for interaction
     }
 
-    public void setBrushSize(float newSize){
+    public void setBrushSize(float newSize)
+    {
         float pixelAmount = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 newSize, getResources().getDisplayMetrics());
-        brushSize=pixelAmount;
+        brushSize = pixelAmount;
         drawPaint.setStrokeWidth(brushSize);
     }
 
-    public void setLastBrushSize(float lastSize){
+    public void setLastBrushSize(float lastSize)
+    {
         lastBrushSize=lastSize;
     }
-    public float getLastBrushSize(){
+
+
+
+    public float getLastBrushSize()
+    {
         return lastBrushSize;
     }
 
+
+
+
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+    protected void onSizeChanged(int w, int h, int oldw, int oldh)
+    {
         super.onSizeChanged(w, h, oldw, oldh);
         canvasBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         drawCanvas = new Canvas(canvasBitmap);
+
+        pixelatr = new DrawPixel(canvasBitmap);
     }
 
 
@@ -124,13 +143,13 @@ public class DrawingView extends View
         float touchX = event.getX();
         float touchY = event.getY();
         switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_DOWN://1st pos
                 drawPath.moveTo(touchX, touchY);
                 break;
-            case MotionEvent.ACTION_MOVE:
+            case MotionEvent.ACTION_MOVE://records the positions and directions.
                 drawPath.lineTo(touchX, touchY);
                 break;
-            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_UP://places it.
                 drawCanvas.drawPath(drawPath, drawPaint);
                 drawPath.reset();
                 break;
