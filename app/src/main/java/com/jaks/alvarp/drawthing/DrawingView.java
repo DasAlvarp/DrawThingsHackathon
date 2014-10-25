@@ -30,6 +30,14 @@ public class DrawingView extends View
     //canvas bitmap
     private Bitmap canvasBitmap;
 
+    private boolean erase=false;
+
+    public void setErase(boolean isErase)
+    {
+        erase=isErase;
+        if(erase) drawPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+        else drawPaint.setXfermode(null);
+    }
 
     public DrawingView(Context context) {
         super(context);
