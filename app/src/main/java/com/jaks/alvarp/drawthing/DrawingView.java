@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.view.MotionEvent;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -32,6 +33,9 @@ public class DrawingView extends View
 
     private DrawPixel pixelatr;
 
+    private EditText RGBvalues = (EditText) findViewById(R.id.rgb_values);
+    private String value = RGBvalues.getText().toString();
+    private int parseColor = Integer.parseInt(value);
 
     private float pixelBig;
 
