@@ -33,7 +33,6 @@ public class DrawingView extends View
     private DrawPixel pixelatr;
 
 
-    private float pixelBig;
 
 
     private boolean erase=false;
@@ -41,8 +40,14 @@ public class DrawingView extends View
     public void setErase(boolean isErase)
     {
         erase=isErase;
-        if(erase) drawPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-        else drawPaint.setXfermode(null);
+        if(erase)
+        {
+            drawPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+        }
+        else
+        {
+            drawPaint.setXfermode(null);
+        }
     }
 
     public DrawingView(Context context)
@@ -127,6 +132,7 @@ public class DrawingView extends View
         drawCanvas = new Canvas(canvasBitmap);
 
         pixelatr = new DrawPixel(canvasBitmap);
+
     }
 
 
@@ -142,7 +148,13 @@ public class DrawingView extends View
     {
         float touchX = event.getX();
         float touchY = event.getY();
-        switch (event.getAction()) {
+        //draw the square now
+        drawCanvas.drawRect(pixelatr.min(touchX), pixelatr.max(touchY), pixelatr.max(touchX),pixelatr.min(touchY), drawPaint);
+
+
+        /*
+        switch (event.getAction())
+        {
             case MotionEvent.ACTION_DOWN://1st pos
                 drawPath.moveTo(touchX, touchY);
                 break;
@@ -156,6 +168,7 @@ public class DrawingView extends View
             default:
                 return false;
         }
+        */
         invalidate();
         return true;
     }

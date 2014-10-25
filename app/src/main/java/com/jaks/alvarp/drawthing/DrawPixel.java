@@ -13,6 +13,8 @@ public class DrawPixel
 
     private float x;
     private float y;
+    private Bitmap bit;
+    private float theBigOne;
 
     public DrawPixel(Bitmap pic)
     {
@@ -26,11 +28,22 @@ public class DrawPixel
             y = pic.getHeight();
             y = x;
         }
+
+        bit = pic;
+
+        theBigOne = y / 16;
     }
 
 
-    public void drawLine(float tx, float ty)
+    public float min(float val)
     {
+        float over = val % 16;
+        return val - over;
+    }
 
+    public float max(float val)
+    {
+        float ovah = 16 - (val % 16);
+        return val + ovah;
     }
 }
