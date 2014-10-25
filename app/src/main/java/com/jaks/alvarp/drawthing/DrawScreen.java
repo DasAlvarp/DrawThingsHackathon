@@ -1,7 +1,6 @@
 package com.jaks.alvarp.drawthing;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,14 +29,14 @@ public class DrawScreen extends Activity implements OnClickListener
 
 
     public void paintClicked(View view){
-        if(view!=currPaint)
+        if(view != currPaint)
         {
             ImageButton imgView = (ImageButton)view;
             String color = view.getTag().toString();
             drawView.setColor(color);
             imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
             currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
-            currPaint=(ImageButton)view;
+            currPaint = (ImageButton)view;
             drawView.setErase(false);
             drawView.setBrushSize(drawView.getLastBrushSize());
 

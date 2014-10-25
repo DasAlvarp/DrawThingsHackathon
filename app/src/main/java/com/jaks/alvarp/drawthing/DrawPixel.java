@@ -38,12 +38,12 @@ public class DrawPixel
     public float min(float val)
     {
         float over = val % 16;
-        return val - over;
+        return (float)(int)((val - over) / 16) * (16);
     }
 
     public float max(float val)
     {
         float ovah = 16 - (val % 16);
-        return val + ovah;
+        return (float)(int)((val + ovah) / 16) * (16);
     }
 }

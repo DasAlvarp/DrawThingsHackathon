@@ -6,7 +6,6 @@ import android.view.View;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.view.MotionEvent;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -20,8 +19,6 @@ import android.util.TypedValue;
 public class DrawingView extends View
 {
     private float brushSize, lastBrushSize;
-    //drawing path
-    private Path drawPath;
     //drawing and canvas paint
     private Paint drawPaint, canvasPaint;
     //initial color
@@ -32,11 +29,11 @@ public class DrawingView extends View
     private Bitmap canvasBitmap;
 
     private DrawPixel pixelatr;
-
+/*
     private EditText RGBvalues = (EditText) findViewById(R.id.rgb_values);
     private String value = RGBvalues.getText().toString();
     private int parseColor = Integer.parseInt(value);
-
+*/
 
 
     private boolean erase=false;
@@ -82,7 +79,6 @@ public class DrawingView extends View
 
     private void setupDrawing()
     {
-        drawPath = new Path();
         drawPaint = new Paint();
 
         drawPaint.setColor(paintColor);
@@ -144,7 +140,6 @@ public class DrawingView extends View
     protected void onDraw(Canvas canvas) {
 
         canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
-        canvas.drawPath(drawPath, drawPaint);
     }
 
     @Override
