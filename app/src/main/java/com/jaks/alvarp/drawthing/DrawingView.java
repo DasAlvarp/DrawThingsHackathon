@@ -37,7 +37,6 @@ public class DrawingView extends View
     private String value = RGBvalues.getText().toString();
     private int parseColor = Integer.parseInt(value);
 
-    private float pixelBig;
 
 
     private boolean erase=false;
@@ -45,8 +44,14 @@ public class DrawingView extends View
     public void setErase(boolean isErase)
     {
         erase=isErase;
-        if(erase) drawPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-        else drawPaint.setXfermode(null);
+        if(erase)
+        {
+            drawPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+        }
+        else
+        {
+            drawPaint.setXfermode(null);
+        }
     }
 
     public DrawingView(Context context)
@@ -131,6 +136,7 @@ public class DrawingView extends View
         drawCanvas = new Canvas(canvasBitmap);
 
         pixelatr = new DrawPixel(canvasBitmap);
+
     }
 
 
@@ -146,16 +152,18 @@ public class DrawingView extends View
     {
         float touchX = event.getX();
         float touchY = event.getY();
-        switch (event.getAction()) {
+        //draw the square now
+
+
+
+        switch (event.getAction())
+        {
             case MotionEvent.ACTION_DOWN://1st pos
-                drawPath.moveTo(touchX, touchY);
                 break;
             case MotionEvent.ACTION_MOVE://records the positions and directions.
-                drawPath.lineTo(touchX, touchY);
+                drawCanvas.drawRect(pixelatr.min(touchX), pixelatr.max(touchY), pixelatr.max(touchX),pixelatr.min(touchY), drawPaint);
                 break;
             case MotionEvent.ACTION_UP://places it.
-                drawCanvas.drawPath(drawPath, drawPaint);
-                drawPath.reset();
                 break;
             default:
                 return false;
