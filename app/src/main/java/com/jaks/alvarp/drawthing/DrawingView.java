@@ -35,6 +35,7 @@ public class DrawingView extends View
     private int parseColor = Integer.parseInt(value);
 */
 
+    private float thesmallone = 100;
 
     private boolean erase=false;
 
@@ -84,7 +85,11 @@ public class DrawingView extends View
         drawPaint.setColor(paintColor);
 
         drawPaint.setAntiAlias(false);
-        drawPaint.setStrokeWidth(20);
+
+
+
+
+        drawPaint.setStrokeWidth(thesmallone / 8);
         drawPaint.setStyle(Paint.Style.STROKE);
         drawPaint.setStrokeJoin(Paint.Join.MITER);
         drawPaint.setStrokeCap(Paint.Cap.SQUARE);
@@ -132,6 +137,18 @@ public class DrawingView extends View
         drawCanvas = new Canvas(canvasBitmap);
 
         pixelatr = new DrawPixel(canvasBitmap);
+        float thesmallone;
+        float x = canvasBitmap.getWidth();
+        float y = canvasBitmap.getHeight();
+        if(x > y)
+        {
+            thesmallone = y;
+        }
+        else
+        {
+            thesmallone = x;
+        }
+
 
     }
 
