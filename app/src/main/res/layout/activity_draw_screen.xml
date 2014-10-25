@@ -65,7 +65,7 @@
 
         <EditText
             android:id="@+id/rgb_values"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="50dp" />
 
         <!-- Top Row -->
@@ -73,7 +73,8 @@
             android:id="@+id/paint_colors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:background="#f5f5dc">
             <ImageButton
                 android:layout_width="@dimen/large_brush"
                 android:layout_height="@dimen/large_brush"
