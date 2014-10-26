@@ -3,9 +3,12 @@ package com.jaks.alvarp.drawthing;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import java.util.UUID;
@@ -19,34 +22,45 @@ import android.widget.Toast;
 
 public class DrawScreen extends Activity implements OnClickListener
 {
-    private float smallBrush, mediumBrush, largeBrush;
     private DrawingView drawView;
-    private ImageButton currPaint, drawBtn, eraseBtn, newBtn, saveBtn;
+    private ImageButton currPaint, drawBtn, eraseBtn, newBtn, saveBtn, tempBtn;
+    private Button rgbBtn;
+    private EditText RGBvalues;
+    private String value = "";
 
-
-
-
-
+    public void setRGB(View view)
+    {
+        RGBvalues = (EditText) findViewById(R.id.rgb_values);
+        value = (RGBvalues.getText().toString());
+        paintClicked(view);
+        currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
+    }
 
 
     public void paintClicked(View view){
         if(view != currPaint)
         {
-            ImageButton imgView = (ImageButton)view;
-            String color = view.getTag().toString();
-            /*if (drawView.value.length() != 0)
+            ImageButton imgView;
+            String color;
+            if (value.length() == 7)
             {
-                drawView.setColor(drawView.value);
+                drawView.setColor(value);
+                value = "";
+                currPaint = tempBtn;
+                drawView.setErase(false);
             }
             else
-            {*/
+            {
+                color = view.getTag().toString();
+                imgView = (ImageButton)view;
                 drawView.setColor(color);
-            //}
+                imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
+                currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
+                currPaint = (ImageButton)view;
+                drawView.setErase(false);
+            }
 
-            imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
-            currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
-            currPaint = (ImageButton)view;
-            drawView.setErase(false);
+
             drawView.setBrushSize(drawView.getLastBrushSize());
 
         }
@@ -84,6 +98,19 @@ public class DrawScreen extends Activity implements OnClickListener
 
         saveBtn = (ImageButton)findViewById(R.id.save_btn);
         saveBtn.setOnClickListener(this);
+
+        rgbBtn = (Button)findViewById(R.id.RGBbutton);
+        rgbBtn.setOnClickListener(
+                new View.OnClickListener()
+                {
+                    public void onClick(View view)
+                    {
+//                       Log.v("rgbText", rgbText.getText().toString());
+                        setRGB(view);
+                    }
+                });
+
+        tempBtn = (ImageButton)findViewById(R.id.temp_value);
     }
 
 

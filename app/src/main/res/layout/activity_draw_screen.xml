@@ -11,8 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/new_btn"
@@ -95,14 +94,20 @@
                 android:inputType="textNoSuggestions"
                 android:hint="#RRGGBB"
                 android:imeOptions="actionDone"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:tag="rgb_values"/>
 
             <Button
                 android:id="@+id/RGBbutton"
-                android:layout_height="30dp"
+                android:layout_height="50dp"
                 android:layout_width="wrap_content"
                 android:text="Set RGB"
                 android:onClick="setRGB"/>
+            <ImageButton
+                android:id="@+id/temp_value"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                />
 
 
         </LinearLayout>

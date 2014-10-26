@@ -32,17 +32,7 @@ public class DrawingView extends View
     private DrawPixel pixelatr;
 
 
-    public EditText RGBvalues;
-    public String value;
 
-    Button RGBbutton = (Button) findViewById(R.id.RGBbutton);
-
-    public void setRGB(View view){
-        RGBvalues = (EditText) findViewById(R.id.rgb_values);
-        value = (RGBvalues.getText().toString());
-        //public int parseColor = Integer.parseInt(value);
-        // may not need above code
-    }
 
     protected int thesmallone;
 
