@@ -99,7 +99,7 @@ public class DrawingView extends View
 
 
 
-        brushSize = getResources().getInteger(R.integer.medium_size);
+        brushSize =1;
         lastBrushSize = brushSize;
 
         drawPaint.setStrokeWidth(brushSize);
@@ -110,9 +110,9 @@ public class DrawingView extends View
 
     public void setBrushSize(float newSize)
     {
-        float pixelAmount = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                newSize, getResources().getDisplayMetrics());
-        brushSize = pixelAmount;
+//        float pixelAmount = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+//                newSize, getResources().getDisplayMetrics());
+        brushSize = newSize;
         drawPaint.setStrokeWidth(brushSize);
     }
 
@@ -193,7 +193,7 @@ public class DrawingView extends View
             case MotionEvent.ACTION_DOWN://1st pos
                 break;
             case MotionEvent.ACTION_MOVE://records the positions and directions.
-                drawCanvas.drawRect(pixelatr.min(touchX), pixelatr.max(touchY), pixelatr.max(touchX),pixelatr.min(touchY), drawPaint);
+                drawCanvas.drawRect(pixelatr.min(touchX), pixelatr.min(touchY + brushSize * thesmallone / 16), pixelatr.min(touchX + brushSize * thesmallone / 16),pixelatr.min(touchY), drawPaint);
                 break;
             case MotionEvent.ACTION_UP://places it.
                 break;
