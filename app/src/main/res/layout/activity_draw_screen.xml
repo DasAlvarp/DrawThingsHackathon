@@ -70,7 +70,7 @@
             android:layout_height="50dp"
             android:singleLine="true"
             android:inputType="textNoSuggestions"
-            android:hint="RGB"
+            android:hint="#RRGGBB"
             android:imeOptions="actionDone"
             android:gravity="center"/>
 
