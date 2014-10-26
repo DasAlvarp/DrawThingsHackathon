@@ -18,7 +18,8 @@
             android:name="com.jaks.alvarp.drawthing.DrawScreen"
             android:configChanges="keyboard|orientation|screenSize"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
