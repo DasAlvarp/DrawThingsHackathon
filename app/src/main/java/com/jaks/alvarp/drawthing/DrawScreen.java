@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -37,7 +38,6 @@ import android.widget.Toast;
 public class DrawScreen extends Activity implements OnClickListener {
     private DrawingView drawView;
     private ImageButton currPaint, drawBtn, eraseBtn, newBtn, saveBtn;
-    private Button rgbBtn;
     private EditText RGBvalues;
     private String value = "";
 
@@ -104,21 +104,10 @@ public class DrawScreen extends Activity implements OnClickListener {
         RGBvalues.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                if (actionId == EditorInfo.IME_ACTION_DONE)
                     setRGB(v);
-                    handled = true;
-                }
-                return handled;
+                return false;
             }
-        });
-
-        rgbBtn = (Button) findViewById(R.id.RGBbutton);
-        rgbBtn.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        setRGB(view);
-                    }
         });
 
     }

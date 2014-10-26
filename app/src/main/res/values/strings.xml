@@ -13,5 +13,6 @@
     <string name="lrg">Large</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="pixlatricon">contentDescription = picture</string>
+    <string name="rgb_hint">#RRGGBB</string>
 
 </resources>
