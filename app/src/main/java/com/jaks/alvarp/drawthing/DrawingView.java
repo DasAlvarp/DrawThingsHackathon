@@ -26,7 +26,7 @@ public class DrawingView extends View
     //canvas
     private Canvas drawCanvas;
     //canvas bitmap
-    private Bitmap canvasBitmap;
+    protected Bitmap canvasBitmap;
 
     private DrawPixel pixelatr;
 
