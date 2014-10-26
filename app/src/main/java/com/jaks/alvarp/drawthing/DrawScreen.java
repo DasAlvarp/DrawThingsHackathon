@@ -187,9 +187,9 @@ public class DrawScreen extends Activity implements OnClickListener
         else if(view.getId()==R.id.new_btn)
         {
             AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
-            newDialog.setTitle("New drawing");
-            newDialog.setMessage("Start new drawing (you will lose the current drawing)?");
-            newDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+            newDialog.setTitle("New Pixlatr canvas");
+            newDialog.setMessage("Start new drawing (finna lose yo current drawing)?");
+            newDialog.setPositiveButton("Hell Yeah", new DialogInterface.OnClickListener()
             {
                 public void onClick(DialogInterface dialog, int which)
                 {
@@ -197,7 +197,7 @@ public class DrawScreen extends Activity implements OnClickListener
                     dialog.dismiss();
                 }
             });
-            newDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+            newDialog.setNegativeButton("Nah, dude.", new DialogInterface.OnClickListener()
             {
                 public void onClick(DialogInterface dialog, int which)
                 {
@@ -208,9 +208,9 @@ public class DrawScreen extends Activity implements OnClickListener
         }
         else if(view.getId()==R.id.save_btn){
             AlertDialog.Builder saveDialog = new AlertDialog.Builder(this);
-            saveDialog.setTitle("Save drawing");
-            saveDialog.setMessage("Save drawing to device Gallery?");
-            saveDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+            saveDialog.setTitle("Save this thang");
+            saveDialog.setMessage("Tryna save your dope ass picture to yo Gallery?");
+            saveDialog.setPositiveButton("Hell yeah!", new DialogInterface.OnClickListener()
             {
                 public void onClick(DialogInterface dialog, int which)
                 {
@@ -220,19 +220,19 @@ public class DrawScreen extends Activity implements OnClickListener
                             UUID.randomUUID().toString()+".png", "drawing");
                     if(imgSaved!=null){
                         Toast savedToast = Toast.makeText(getApplicationContext(),
-                                "Drawing saved to Gallery!", Toast.LENGTH_SHORT);
+                                "That shit was saved!", Toast.LENGTH_SHORT);
                         savedToast.show();
                     }
                     else
                     {
                         Toast unsavedToast = Toast.makeText(getApplicationContext(),
-                                "Oops! Image could not be saved.", Toast.LENGTH_SHORT);
+                                "Oops! Yo shit can't be saved.", Toast.LENGTH_SHORT);
                         unsavedToast.show();
                     }
                     drawView.destroyDrawingCache();
                 }
             });
-            saveDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+            saveDialog.setNegativeButton("Nah, dude.", new DialogInterface.OnClickListener()
             {
                 public void onClick(DialogInterface dialog, int which)
                 {
