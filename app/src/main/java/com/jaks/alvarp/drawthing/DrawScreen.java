@@ -71,11 +71,6 @@ public class DrawScreen extends Activity implements OnClickListener
         currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
 
 
-        smallBrush = getResources().getInteger(R.integer.small_size);
-        mediumBrush = getResources().getInteger(R.integer.medium_size);
-        largeBrush = getResources().getInteger(R.integer.large_size);
-
-
         drawBtn = (ImageButton)findViewById(R.id.draw_btn);
         drawBtn.setOnClickListener(this);
 
@@ -109,8 +104,8 @@ public class DrawScreen extends Activity implements OnClickListener
                 @Override
                 public void onClick(View v)
                 {
-                    drawView.setBrushSize(smallBrush);
-                    drawView.setLastBrushSize(smallBrush);
+                    drawView.setBrushSize(drawView.thesmallone / 16);
+                    drawView.setLastBrushSize(drawView.thesmallone / 16);
                     drawView.setErase(false);
                     brushDialog.dismiss();
                 }
@@ -121,8 +116,8 @@ public class DrawScreen extends Activity implements OnClickListener
                 @Override
                 public void onClick(View v)
                 {
-                    drawView.setBrushSize(mediumBrush);
-                    drawView.setLastBrushSize(mediumBrush);
+                    drawView.setBrushSize(drawView.thesmallone / 12);
+                    drawView.setLastBrushSize(drawView.thesmallone / 12);
                     drawView.setErase(false);
                     brushDialog.dismiss();
                 }
@@ -134,8 +129,8 @@ public class DrawScreen extends Activity implements OnClickListener
                 @Override
                 public void onClick(View v)
                 {
-                    drawView.setBrushSize(largeBrush);
-                    drawView.setLastBrushSize(largeBrush);
+                    drawView.setBrushSize(drawView.thesmallone / 8);
+                    drawView.setLastBrushSize(drawView.thesmallone / 8);
                     drawView.setErase(false);
                     brushDialog.dismiss();
                 }
@@ -156,7 +151,7 @@ public class DrawScreen extends Activity implements OnClickListener
                 public void onClick(View v)
                 {
                     drawView.setErase(true);
-                    drawView.setBrushSize(smallBrush);
+                    drawView.setBrushSize(drawView.thesmallone / 16);
                     brushDialog.dismiss();
                 }
             });
@@ -167,7 +162,7 @@ public class DrawScreen extends Activity implements OnClickListener
                 public void onClick(View v)
                 {
                     drawView.setErase(true);
-                    drawView.setBrushSize(mediumBrush);
+                    drawView.setBrushSize(drawView.thesmallone / 12);
                     brushDialog.dismiss();
                 }
             });
@@ -178,7 +173,7 @@ public class DrawScreen extends Activity implements OnClickListener
                 public void onClick(View v)
                 {
                     drawView.setErase(true);
-                    drawView.setBrushSize(largeBrush);
+                    drawView.setBrushSize(drawView.thesmallone / 8);
                     brushDialog.dismiss();
                 }
             });
@@ -251,7 +246,7 @@ public class DrawScreen extends Activity implements OnClickListener
     {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.draw_screen, menu);
-        drawView.setBrushSize(mediumBrush);
+        drawView.setBrushSize(drawView.thesmallone / 12);
         return true;
     }
 

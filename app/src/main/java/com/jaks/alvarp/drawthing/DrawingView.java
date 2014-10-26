@@ -36,7 +36,7 @@ public class DrawingView extends View
     public int parseColor = Integer.parseInt(value);
     */
 
-    private float thesmallone = 100;
+    protected float thesmallone;
 
     private boolean erase=false;
 
@@ -90,7 +90,7 @@ public class DrawingView extends View
 
 
 
-        drawPaint.setStrokeWidth(thesmallone / 8);
+        drawPaint.setStrokeWidth(thesmallone / 16);
         drawPaint.setStyle(Paint.Style.STROKE);
         drawPaint.setStrokeJoin(Paint.Join.MITER);
         drawPaint.setStrokeCap(Paint.Cap.SQUARE);
@@ -105,6 +105,8 @@ public class DrawingView extends View
 
         drawPaint.setStrokeWidth(brushSize);
         //get drawing area setup for interaction
+        drawPaint.setStyle(Paint.Style.FILL);
+
     }
 
     public void setBrushSize(float newSize)
@@ -169,6 +171,7 @@ public class DrawingView extends View
         float touchY = event.getY();
         //draw the square now
 
+        drawPaint.setStyle(Paint.Style.FILL);
 
 
         switch (event.getAction())
@@ -176,7 +179,7 @@ public class DrawingView extends View
             case MotionEvent.ACTION_DOWN://1st pos
                 break;
             case MotionEvent.ACTION_MOVE://records the positions and directions.
-                drawCanvas.drawRect(pixelatr.max(touchX), pixelatr.min(touchY), pixelatr.min(touchX),pixelatr.max(touchY), drawPaint);
+                drawCanvas.drawRect(pixelatr.min(touchX), pixelatr.max(touchY), pixelatr.max(touchX),pixelatr.min(touchY), drawPaint);
                 break;
             case MotionEvent.ACTION_UP://places it.
                 break;
@@ -185,5 +188,6 @@ public class DrawingView extends View
         }
         invalidate();
         return true;
+
     }
 }
