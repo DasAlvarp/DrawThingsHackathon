@@ -33,7 +33,15 @@ public class DrawScreen extends Activity implements OnClickListener
         {
             ImageButton imgView = (ImageButton)view;
             String color = view.getTag().toString();
-            drawView.setColor(color);
+            /*if (drawView.value.length() != 0)
+            {
+                drawView.setColor(drawView.value);
+            }
+            else
+            {*/
+                drawView.setColor(color);
+            //}
+
             imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
             currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
             currPaint = (ImageButton)view;

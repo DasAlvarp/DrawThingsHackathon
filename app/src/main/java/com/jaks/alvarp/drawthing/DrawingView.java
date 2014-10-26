@@ -29,11 +29,11 @@ public class DrawingView extends View
     private Bitmap canvasBitmap;
 
     private DrawPixel pixelatr;
-/*
-    private EditText RGBvalues = (EditText) findViewById(R.id.rgb_values);
-    private String value = RGBvalues.getText().toString();
-    private int parseColor = Integer.parseInt(value);
-*/
+
+    /*private EditText RGBvalues = (EditText) findViewById(R.id.rgb_values);
+    public String value = ("#" + RGBvalues.getText().toString());
+    public int parseColor = Integer.parseInt(value);
+    */
 
     private float thesmallone = 100;
 
