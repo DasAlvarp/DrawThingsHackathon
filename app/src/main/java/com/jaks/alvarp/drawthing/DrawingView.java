@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.util.TypedValue;
@@ -29,10 +30,13 @@ public class DrawingView extends View
 
     private DrawPixel pixelatr;
 
-    // editText = (EditText) findViewById(R.id.rgb_values);
-    String value = ((EditText) findViewById(R.id.rgb_values)).getText().toString();
 
-    protected float theSmallOne;
+    /*private EditText RGBvalues = (EditText) findViewById(R.id.rgb_values);
+    public String value = ("#" + RGBvalues.getText().toString());
+    public int parseColor = Integer.parseInt(value);
+    */
+
+    protected int thesmallone;
 
     private boolean erase=false;
 
@@ -86,7 +90,7 @@ public class DrawingView extends View
 
 
 
-        drawPaint.setStrokeWidth(theSmallOne / 16);
+        drawPaint.setStrokeWidth(thesmallone / 16);
         drawPaint.setStyle(Paint.Style.STROKE);
         drawPaint.setStrokeJoin(Paint.Join.MITER);
         drawPaint.setStrokeCap(Paint.Cap.SQUARE);
@@ -134,7 +138,6 @@ public class DrawingView extends View
         super.onSizeChanged(w, h, oldw, oldh);
         canvasBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
 
-        int thesmallone;
         int x = canvasBitmap.getWidth();
         int y = canvasBitmap.getHeight();
         if(x > y)
@@ -145,6 +148,8 @@ public class DrawingView extends View
         {
             thesmallone = x;
         }
+
+        thesmallone -= thesmallone % 16;
 
         canvasBitmap = Bitmap.createBitmap(thesmallone, thesmallone, Bitmap.Config.ARGB_8888);
         pixelatr = new DrawPixel(canvasBitmap);
