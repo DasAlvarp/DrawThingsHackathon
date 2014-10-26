@@ -11,39 +11,34 @@ import android.graphics.Bitmap;
 public class DrawPixel
 {
 
-    private float x;
-    private float y;
     private Bitmap bit;
     private float theBigOne;
+    private float pixelRate;
 
     public DrawPixel(Bitmap pic)
     {
         if(pic.getHeight() > pic.getWidth())
         {
-            x = pic.getWidth();
-            y = x;
+            theBigOne = pic.getWidth();
         }
         else
         {
-            y = pic.getHeight();
-            y = x;
+            theBigOne = pic.getHeight();
         }
 
         bit = pic;
 
-        theBigOne = y / 16;
+        pixelRate = theBigOne / 16;
     }
 
 
     public float min(float val)
     {
-        float over = val % 16;
-        return (float)(int)((val - over) / 16) * (16);
+       return (float) val - (val % pixelRate );
     }
 
     public float max(float val)
     {
-        float ovah = 16 - (val % 16);
-        return (float)(int)((val + ovah) / 16) * (16);
+        return (float) val + (pixelRate - val % pixelRate );
     }
 }
