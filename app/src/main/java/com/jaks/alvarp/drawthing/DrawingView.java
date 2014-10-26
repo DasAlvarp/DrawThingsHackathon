@@ -134,12 +134,10 @@ public class DrawingView extends View
     {
         super.onSizeChanged(w, h, oldw, oldh);
         canvasBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-        drawCanvas = new Canvas(canvasBitmap);
 
-        pixelatr = new DrawPixel(canvasBitmap);
-        float thesmallone;
-        float x = canvasBitmap.getWidth();
-        float y = canvasBitmap.getHeight();
+        int thesmallone;
+        int x = canvasBitmap.getWidth();
+        int y = canvasBitmap.getHeight();
         if(x > y)
         {
             thesmallone = y;
@@ -148,6 +146,10 @@ public class DrawingView extends View
         {
             thesmallone = x;
         }
+
+        canvasBitmap = Bitmap.createBitmap(thesmallone, thesmallone, Bitmap.Config.ARGB_8888);
+        pixelatr = new DrawPixel(canvasBitmap);
+        drawCanvas = new Canvas(canvasBitmap);
 
 
     }
@@ -173,7 +175,7 @@ public class DrawingView extends View
             case MotionEvent.ACTION_DOWN://1st pos
                 break;
             case MotionEvent.ACTION_MOVE://records the positions and directions.
-                drawCanvas.drawRect(pixelatr.min(touchX), pixelatr.max(touchY), pixelatr.max(touchX),pixelatr.min(touchY), drawPaint);
+                drawCanvas.drawRect(pixelatr.max(touchX), pixelatr.min(touchY), pixelatr.min(touchX),pixelatr.max(touchY), drawPaint);
                 break;
             case MotionEvent.ACTION_UP://places it.
                 break;
