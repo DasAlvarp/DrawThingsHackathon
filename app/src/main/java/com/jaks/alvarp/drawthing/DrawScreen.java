@@ -1,6 +1,7 @@
 package com.jaks.alvarp.drawthing;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,7 +34,7 @@ public class DrawScreen extends Activity implements OnClickListener
         {
             ImageButton imgView = (ImageButton)view;
             String color = view.getTag().toString();
-            /*if (drawView.value.length() == 7)
+            /*if (drawView.value.length() != 0)
             {
                 drawView.setColor(drawView.value);
             }
@@ -116,8 +117,8 @@ public class DrawScreen extends Activity implements OnClickListener
                 @Override
                 public void onClick(View v)
                 {
-                    drawView.setBrushSize(drawView.thesmallone / 12);
-                    drawView.setLastBrushSize(drawView.thesmallone / 12);
+                    drawView.setBrushSize(drawView.thesmallone / 8);
+                    drawView.setLastBrushSize(drawView.thesmallone / 8);
                     drawView.setErase(false);
                     brushDialog.dismiss();
                 }
@@ -129,8 +130,8 @@ public class DrawScreen extends Activity implements OnClickListener
                 @Override
                 public void onClick(View v)
                 {
-                    drawView.setBrushSize(drawView.thesmallone / 8);
-                    drawView.setLastBrushSize(drawView.thesmallone / 8);
+                    drawView.setBrushSize(drawView.thesmallone / 4);
+                    drawView.setLastBrushSize(drawView.thesmallone / 4);
                     drawView.setErase(false);
                     brushDialog.dismiss();
                 }
@@ -162,7 +163,7 @@ public class DrawScreen extends Activity implements OnClickListener
                 public void onClick(View v)
                 {
                     drawView.setErase(true);
-                    drawView.setBrushSize(drawView.thesmallone / 12);
+                    drawView.setBrushSize(drawView.thesmallone / 8);
                     brushDialog.dismiss();
                 }
             });
@@ -173,7 +174,7 @@ public class DrawScreen extends Activity implements OnClickListener
                 public void onClick(View v)
                 {
                     drawView.setErase(true);
-                    drawView.setBrushSize(drawView.thesmallone / 8);
+                    drawView.setBrushSize(drawView.thesmallone / 4);
                     brushDialog.dismiss();
                 }
             });
@@ -182,9 +183,9 @@ public class DrawScreen extends Activity implements OnClickListener
         else if(view.getId()==R.id.new_btn)
         {
             AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
-            newDialog.setTitle("New Pixlatr canvas");
-            newDialog.setMessage("Start new drawing (finna lose yo current drawing)?");
-            newDialog.setPositiveButton("Hell Yeah", new DialogInterface.OnClickListener()
+            newDialog.setTitle("New drawing");
+            newDialog.setMessage("Start new drawing (you will lose the current drawing)?");
+            newDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener()
             {
                 public void onClick(DialogInterface dialog, int which)
                 {
@@ -192,7 +193,7 @@ public class DrawScreen extends Activity implements OnClickListener
                     dialog.dismiss();
                 }
             });
-            newDialog.setNegativeButton("Nah, dude.", new DialogInterface.OnClickListener()
+            newDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
             {
                 public void onClick(DialogInterface dialog, int which)
                 {
@@ -203,31 +204,34 @@ public class DrawScreen extends Activity implements OnClickListener
         }
         else if(view.getId()==R.id.save_btn){
             AlertDialog.Builder saveDialog = new AlertDialog.Builder(this);
-            saveDialog.setTitle("Save this thang");
-            saveDialog.setMessage("Tryna save your dope ass picture to yo Gallery?");
-            saveDialog.setPositiveButton("Hell yeah!", new DialogInterface.OnClickListener()
+            saveDialog.setTitle("Save drawing");
+            saveDialog.setMessage("Save drawing to device Gallery?");
+            saveDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener()
             {
                 public void onClick(DialogInterface dialog, int which)
                 {
                     drawView.setDrawingCacheEnabled(true);
+
+                    Bitmap aBmp = drawView.canvasBitmap;
+
                     String imgSaved = MediaStore.Images.Media.insertImage(
-                            getContentResolver(), drawView.getDrawingCache(),
-                            UUID.randomUUID().toString()+".png", "drawing");
-                    if(imgSaved!=null){
+                            getContentResolver(), aBmp,
+                            UUID.randomUUID().toString() + ".png", "drawing");
+                    if(imgSaved != null){
                         Toast savedToast = Toast.makeText(getApplicationContext(),
-                                "That shit was saved!", Toast.LENGTH_SHORT);
+                                "Drawing saved to Gallery!", Toast.LENGTH_SHORT);
                         savedToast.show();
                     }
                     else
                     {
                         Toast unsavedToast = Toast.makeText(getApplicationContext(),
-                                "Oops! Yo shit can't be saved.", Toast.LENGTH_SHORT);
+                                "Oops! Image could not be saved.", Toast.LENGTH_SHORT);
                         unsavedToast.show();
                     }
                     drawView.destroyDrawingCache();
                 }
             });
-            saveDialog.setNegativeButton("Nah, dude.", new DialogInterface.OnClickListener()
+            saveDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
             {
                 public void onClick(DialogInterface dialog, int which)
                 {
@@ -246,7 +250,7 @@ public class DrawScreen extends Activity implements OnClickListener
     {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.draw_screen, menu);
-        drawView.setBrushSize(drawView.thesmallone / 12);
+        drawView.setBrushSize(drawView.thesmallone / 8);
         return true;
     }
 
