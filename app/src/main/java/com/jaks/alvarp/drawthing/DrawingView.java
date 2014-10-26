@@ -30,6 +30,8 @@ public class DrawingView extends View
     //canvas bitmap
     protected Bitmap canvasBitmap;
 
+    protected int[][] colors = new int[16][16];
+
     private DrawPixel pixelatr;
 
 
@@ -60,6 +62,14 @@ public class DrawingView extends View
     public void startNew()
     {
         drawCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
+        for(int x = 0; x < 16; x++)
+        {
+            for(int y = 0; y < 16; y++)
+            {
+                colors[x][y] = -1;
+
+            }
+        }
         invalidate();
     }
 
@@ -80,14 +90,21 @@ public class DrawingView extends View
 
     private void setupDrawing()
     {
-        drawPaint = new Paint();
+        drawPaint = new Paint(Canvas.HAS_ALPHA_LAYER_SAVE_FLAG);
 
         drawPaint.setColor(paintColor);
 
         drawPaint.setAntiAlias(false);
 
 
+        for(int x = 0; x < 16; x++)
+        {
+            for(int y = 0; y < 16; y++)
+            {
+                colors[x][y] = -1;
 
+            }
+        }
 
         drawPaint.setStrokeWidth(thesmallone / 16);
         drawPaint.setStyle(Paint.Style.STROKE);
@@ -136,7 +153,7 @@ public class DrawingView extends View
     protected void onSizeChanged(int w, int h, int oldw, int oldh)
     {
         super.onSizeChanged(w, h, oldw, oldh);
-        canvasBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        canvasBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_4444);
 
         int x = canvasBitmap.getWidth();
         int y = canvasBitmap.getHeight();
@@ -193,9 +210,11 @@ public class DrawingView extends View
         switch (event.getAction())
         {
             case MotionEvent.ACTION_DOWN://1st pos
+                colors[(int)pixelatr.min(touchX) / (thesmallone / 16)][(int)pixelatr.min(touchY) / (thesmallone / 16)] = drawPaint.getColor();
                 drawCanvas.drawRect(pixelatr.min(touchX), pixelatr.min(touchY + brushSize * thesmallone / 16), pixelatr.min(touchX + brushSize * thesmallone / 16),pixelatr.min(touchY), drawPaint);
                 break;
             case MotionEvent.ACTION_MOVE://records the positions and directions.
+                colors[(int)pixelatr.min(touchX) / (thesmallone / 16)][(int)pixelatr.min(touchY) / (thesmallone / 16)] = drawPaint.getColor();
                 drawCanvas.drawRect(pixelatr.min(touchX), pixelatr.min(touchY + brushSize * thesmallone / 16), pixelatr.min(touchX + brushSize * thesmallone / 16),pixelatr.min(touchY), drawPaint);
                 break;
             case MotionEvent.ACTION_UP://places it.

@@ -8,7 +8,6 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,10 +19,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileDescriptor;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.UUID;
 
 import android.provider.MediaStore;
@@ -112,19 +109,18 @@ public class DrawScreen extends Activity implements OnClickListener {
 
     }
 
-    public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth)
+    public Bitmap getResizedBitmap(int[][] bm)
     {
-        int width = bm.getWidth();
-        int height = bm.getHeight();
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-        // CREATE A MATRIX FOR THE MANIPULATION
-        Matrix matrix = new Matrix();
-        // RESIZE THE BIT MAP
-        matrix.postScale(scaleWidth, scaleHeight);
+        Bitmap resizedBitmap = Bitmap.createBitmap(16, 16, Bitmap.Config.ARGB_4444);
+        for(int x = 0; x < 16; x++)
+        {
+            for(int y = 0; y < 16; y++)
+            {
 
+                resizedBitmap.setPixel(x, y, bm[x][y]);
+            }
+        }
         // "RECREATE" THE NEW BITMAP
-        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
         return resizedBitmap;
     }
 
@@ -234,23 +230,44 @@ public class DrawScreen extends Activity implements OnClickListener {
 
                     //Bitmap aBmp = Bitmap.createScaledBitmap(drawView.canvasBitmap, 16, 16, false);
 
-                    Bitmap aBmp = getResizedBitmap(drawView.canvasBitmap, 16, 16);
+
+                    Bitmap aBmp = getResizedBitmap(drawView.colors);
 
 
-
+                    FileOutputStream out = null;
+                    try
+                    {
+                        out = new FileOutputStream("yerpic");
+                        aBmp.compress(Bitmap.CompressFormat.PNG, 90, out);
+                    } catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    } finally {
+                        try {
+                            if (out != null) {
+                                out.close();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
                     String imgSaved = MediaStore.Images.Media.insertImage(
-                            getContentResolver(), aBmp,
-                            UUID.randomUUID().toString() + ".png", "drawing");
-                    if (imgSaved != null) {
+                            getContentResolver(), aBmp, UUID.randomUUID().toString() + ".png", "drawing");
+
+                    if (imgSaved != null)
+                    {
                         Toast savedToast = Toast.makeText(getApplicationContext(),
                                 "Drawing saved to Gallery!", Toast.LENGTH_SHORT);
                         savedToast.show();
-                    } else {
+                    }
+                    else
+                    {
                         Toast unsavedToast = Toast.makeText(getApplicationContext(),
                                 "Oops! Image could not be saved.", Toast.LENGTH_SHORT);
                         unsavedToast.show();
                     }
+
 
                     drawView.destroyDrawingCache();
                 }
