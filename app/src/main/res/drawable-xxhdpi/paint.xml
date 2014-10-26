@@ -1,6 +1,6 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
     <item>
-        <shape android:shape="rectangle" >
+        <shape android:shape="oval" >
             <stroke
                 android:width="4dp"
                 android:color="#FF999999" />
@@ -10,15 +10,6 @@
                 android:left="0dp"
                 android:right="0dp"
                 android:top="0dp" />
-        </shape>
-    </item>
-    <item>
-        <shape xmlns:android="http://schemas.android.com/apk/res/android" >
-            <stroke
-                android:width="4dp"
-                android:color="#FF999999" />
-            <solid android:color="#00000000" />
-            <corners android:radius="10dp" />
         </shape>
     </item>
 </layer-list>
