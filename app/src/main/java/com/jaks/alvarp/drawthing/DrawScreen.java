@@ -36,7 +36,7 @@ import android.widget.Toast;
 
 public class DrawScreen extends Activity implements OnClickListener {
     private DrawingView drawView;
-    private ImageButton currPaint, drawBtn, eraseBtn, newBtn, saveBtn, tempBtn;
+    private ImageButton currPaint, drawBtn, eraseBtn, newBtn, saveBtn;
     private Button rgbBtn;
     private EditText RGBvalues;
     private String value = "";
@@ -51,15 +51,16 @@ public class DrawScreen extends Activity implements OnClickListener {
 
     public void rgbClicked(View view)
     {
-        if (value.length() == 7)
-        {
+        try{
             drawView.setColor(value);
-            currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
-            currPaint = tempBtn;
-            drawView.setErase(false);
-            drawView.setBrushSize(drawView.getLastBrushSize());
+        } catch (Exception e){
+            System.err.println(e.getMessage());
         }
+        currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
+        drawView.setErase(false);
+        drawView.setBrushSize(drawView.getLastBrushSize());
     }
+
 
     public void paintClicked(View view) {
         if (view != currPaint) {
@@ -70,10 +71,7 @@ public class DrawScreen extends Activity implements OnClickListener {
             currPaint = (ImageButton) view;
             drawView.setErase(false);
             drawView.setBrushSize(drawView.getLastBrushSize());
-
         }
-
-
     }
 
 
@@ -123,7 +121,6 @@ public class DrawScreen extends Activity implements OnClickListener {
                     }
         });
 
-        tempBtn = (ImageButton) findViewById(R.id.temp_value);
     }
 
     public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth)

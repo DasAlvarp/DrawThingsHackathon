@@ -70,7 +70,7 @@
         android:layout_marginRight="0dp"
         android:layout_marginTop="0dp"
         android:layout_weight="1"
-        android:background="#FF000000" />
+        android:background="#FFFFFFFF" />
 
 
     <LinearLayout
@@ -103,13 +103,6 @@
                 android:layout_width="wrap_content"
                 android:text="Set RGB"
                 android:onClick="setRGB"/>
-
-            <ImageButton
-                android:id="@+id/temp_value"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:background="#00000000"
-                />
 
 
         </LinearLayout>
