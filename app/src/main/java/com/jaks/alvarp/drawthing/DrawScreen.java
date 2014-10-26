@@ -92,7 +92,7 @@ public class DrawScreen extends Activity implements OnClickListener
     {
         if(view.getId()==R.id.draw_btn){
             final Dialog brushDialog = new Dialog(this);
-            brushDialog.setTitle("Brush size:");
+            brushDialog.setTitle("How big you tryna go:");
             brushDialog.setContentView(R.layout.brush_chooser);
 
 
@@ -142,7 +142,7 @@ public class DrawScreen extends Activity implements OnClickListener
         else if(view.getId()==R.id.erase_btn)
         {
             final Dialog brushDialog = new Dialog(this);
-            brushDialog.setTitle("Eraser size:");
+            brushDialog.setTitle("Delete ya mistake:");
             brushDialog.setContentView(R.layout.brush_chooser);
             ImageButton smallBtn = (ImageButton)brushDialog.findViewById(R.id.small_brush);
             smallBtn.setOnClickListener(new OnClickListener()

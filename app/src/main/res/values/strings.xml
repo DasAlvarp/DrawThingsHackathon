@@ -12,4 +12,6 @@
     <string name="sml">Small</string>
     <string name="med">Medium</string>
     <string name="lrg">Large</string>
+    <string name="title_activity_main">MainActivity</string>
+
 </resources>
