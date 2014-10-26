@@ -8,7 +8,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.util.TypedValue;
@@ -30,13 +29,10 @@ public class DrawingView extends View
 
     private DrawPixel pixelatr;
 
+    // editText = (EditText) findViewById(R.id.rgb_values);
+    String value = ((EditText) findViewById(R.id.rgb_values)).getText().toString();
 
-    /*private EditText RGBvalues = (EditText) findViewById(R.id.rgb_values);
-    public String value = ("#" + RGBvalues.getText().toString());
-    public int parseColor = Integer.parseInt(value);
-    */
-
-    protected float thesmallone;
+    protected float theSmallOne;
 
     private boolean erase=false;
 
@@ -90,7 +86,7 @@ public class DrawingView extends View
 
 
 
-        drawPaint.setStrokeWidth(thesmallone / 16);
+        drawPaint.setStrokeWidth(theSmallOne / 16);
         drawPaint.setStyle(Paint.Style.STROKE);
         drawPaint.setStrokeJoin(Paint.Join.MITER);
         drawPaint.setStrokeCap(Paint.Cap.SQUARE);

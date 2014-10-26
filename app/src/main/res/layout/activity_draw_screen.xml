@@ -68,7 +68,12 @@
             android:id="@+id/rgb_values"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:inputType="textNoSuggestions"
+            android:hint="RGB"
+            android:imeOptions="actionDone"
+            android:gravity="center"/>
+
 
         <!-- Top Row -->
         <LinearLayout
