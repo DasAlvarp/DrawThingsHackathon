@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.MotionEvent;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.graphics.PorterDuff;
@@ -31,10 +32,17 @@ public class DrawingView extends View
     private DrawPixel pixelatr;
 
 
-    /*private EditText RGBvalues = (EditText) findViewById(R.id.rgb_values);
-    public String value = ("#" + RGBvalues.getText().toString());
-    public int parseColor = Integer.parseInt(value);
-    */
+    public EditText RGBvalues;
+    public String value;
+
+    Button RGBbutton = (Button) findViewById(R.id.RGBbutton);
+
+    public void setRGB(View view){
+        RGBvalues = (EditText) findViewById(R.id.rgb_values);
+        value = (RGBvalues.getText().toString());
+        //public int parseColor = Integer.parseInt(value);
+        // may not need above code
+    }
 
     protected int thesmallone;
 
