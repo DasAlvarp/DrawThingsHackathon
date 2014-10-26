@@ -36,7 +36,7 @@ public class DrawingView extends View
     public int parseColor = Integer.parseInt(value);
     */
 
-    protected float thesmallone;
+    protected int thesmallone;
 
     private boolean erase=false;
 
@@ -138,7 +138,6 @@ public class DrawingView extends View
         super.onSizeChanged(w, h, oldw, oldh);
         canvasBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
 
-        int thesmallone;
         int x = canvasBitmap.getWidth();
         int y = canvasBitmap.getHeight();
         if(x > y)
@@ -149,6 +148,8 @@ public class DrawingView extends View
         {
             thesmallone = x;
         }
+
+        thesmallone -= thesmallone % 16;
 
         canvasBitmap = Bitmap.createBitmap(thesmallone, thesmallone, Bitmap.Config.ARGB_8888);
         pixelatr = new DrawPixel(canvasBitmap);
