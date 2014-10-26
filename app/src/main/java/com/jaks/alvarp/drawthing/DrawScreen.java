@@ -38,6 +38,7 @@ public class DrawScreen extends Activity implements OnClickListener {
     private EditText RGBvalues;
     private String value = "";
 
+
     public void setRGB(View view) {
         RGBvalues = (EditText) findViewById(R.id.rgb_values);
         value = (RGBvalues.getText().toString());
@@ -111,7 +112,8 @@ public class DrawScreen extends Activity implements OnClickListener {
         tempBtn = (ImageButton) findViewById(R.id.temp_value);
     }
 
-    public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
+    public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth)
+    {
         int width = bm.getWidth();
         int height = bm.getHeight();
         float scaleWidth = ((float) newWidth) / width;
@@ -233,6 +235,9 @@ public class DrawScreen extends Activity implements OnClickListener {
                     //Bitmap aBmp = Bitmap.createScaledBitmap(drawView.canvasBitmap, 16, 16, false);
 
                     Bitmap aBmp = getResizedBitmap(drawView.canvasBitmap, 16, 16);
+
+
+
 
                     String imgSaved = MediaStore.Images.Media.insertImage(
                             getContentResolver(), aBmp,

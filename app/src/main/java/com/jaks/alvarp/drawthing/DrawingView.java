@@ -94,12 +94,13 @@ public class DrawingView extends View
         drawPaint.setStrokeJoin(Paint.Join.MITER);
         drawPaint.setStrokeCap(Paint.Cap.SQUARE);
 
-        canvasPaint = new Paint(Paint.DITHER_FLAG);
+        canvasPaint = new Paint(Paint.FILTER_BITMAP_FLAG );
+        canvasPaint.setAntiAlias(false);
 
 
 
 
-        brushSize =1;
+        brushSize = 1;
         lastBrushSize = brushSize;
 
         drawPaint.setStrokeWidth(brushSize);
@@ -186,11 +187,13 @@ public class DrawingView extends View
         //draw the square now
 
         drawPaint.setStyle(Paint.Style.FILL);
+        drawPaint.setFilterBitmap(false);
 
 
         switch (event.getAction())
         {
             case MotionEvent.ACTION_DOWN://1st pos
+                drawCanvas.drawRect(pixelatr.min(touchX), pixelatr.min(touchY + brushSize * thesmallone / 16), pixelatr.min(touchX + brushSize * thesmallone / 16),pixelatr.min(touchY), drawPaint);
                 break;
             case MotionEvent.ACTION_MOVE://records the positions and directions.
                 drawCanvas.drawRect(pixelatr.min(touchX), pixelatr.min(touchY + brushSize * thesmallone / 16), pixelatr.min(touchX + brushSize * thesmallone / 16),pixelatr.min(touchY), drawPaint);
