@@ -30,6 +30,7 @@ public class DrawingView extends View
 
     private DrawPixel pixelatr;
 
+
     /*private EditText RGBvalues = (EditText) findViewById(R.id.rgb_values);
     public String value = ("#" + RGBvalues.getText().toString());
     public int parseColor = Integer.parseInt(value);

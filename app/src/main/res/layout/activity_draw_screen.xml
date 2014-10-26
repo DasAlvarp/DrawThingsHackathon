@@ -67,7 +67,8 @@
         <EditText
             android:id="@+id/rgb_values"
             android:layout_width="wrap_content"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:singleLine="true"/>
 
         <!-- Top Row -->
         <LinearLayout
