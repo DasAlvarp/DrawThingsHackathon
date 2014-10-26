@@ -206,15 +206,20 @@ public class DrawingView extends View
         drawPaint.setStyle(Paint.Style.FILL);
         drawPaint.setFilterBitmap(false);
 
+        int relX = (int)pixelatr.min(touchX) / (thesmallone / 16);
+        int relY = (int)pixelatr.min(touchY) / (thesmallone / 16);
+
 
         switch (event.getAction())
         {
             case MotionEvent.ACTION_DOWN://1st pos
-                colors[(int)pixelatr.min(touchX) / (thesmallone / 16)][(int)pixelatr.min(touchY) / (thesmallone / 16)] = drawPaint.getColor();
+                if(relX < 16 && relX > -1 && relY > -1 && relY < 16)
+                    colors[relX][relY] = drawPaint.getColor();
                 drawCanvas.drawRect(pixelatr.min(touchX), pixelatr.min(touchY + brushSize * thesmallone / 16), pixelatr.min(touchX + brushSize * thesmallone / 16),pixelatr.min(touchY), drawPaint);
                 break;
             case MotionEvent.ACTION_MOVE://records the positions and directions.
-                colors[(int)pixelatr.min(touchX) / (thesmallone / 16)][(int)pixelatr.min(touchY) / (thesmallone / 16)] = drawPaint.getColor();
+                if(relX < 16 && relX > -1 && relY > -1 && relY < 16)
+                    colors[relX][relY] = drawPaint.getColor();
                 drawCanvas.drawRect(pixelatr.min(touchX), pixelatr.min(touchY + brushSize * thesmallone / 16), pixelatr.min(touchX + brushSize * thesmallone / 16),pixelatr.min(touchY), drawPaint);
                 break;
             case MotionEvent.ACTION_UP://places it.

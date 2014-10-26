@@ -34,11 +34,35 @@ public class DrawPixel
 
     public float min(float val)
     {
-       return (float) val - (val % pixelRate );
+       float returner = (float) val - (val % pixelRate );
+        if(returner > theBigOne)
+        {
+            return theBigOne;
+        }
+        else if(returner < 0)
+        {
+            return 0;
+        }
+        else
+        {
+            return returner;
+        }
     }
 
     public float max(float val)
     {
-        return (float) val + (pixelRate - val % pixelRate );
+        float returner =(float) val + (pixelRate - val % pixelRate );
+        if(returner > theBigOne - pixelRate)
+        {
+            return theBigOne - pixelRate;
+        }
+        else if(returner < 0)
+        {
+            return 0;
+        }
+        else
+        {
+            return returner;
+        }
     }
 }
