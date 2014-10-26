@@ -1,4 +1,4 @@
-DrawThingsHackathon
+Pixlatr
 ===================
 
 Really rushed hackathon project which lets you draw things.
