@@ -103,10 +103,12 @@
                 android:layout_width="wrap_content"
                 android:text="Set RGB"
                 android:onClick="setRGB"/>
+
             <ImageButton
                 android:id="@+id/temp_value"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
+                android:background="#00000000"
                 />
 
 
