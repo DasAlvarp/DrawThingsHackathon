@@ -180,7 +180,7 @@ public final class ImageWorkaround {
             try {
                 OutputStream thumbOut = cr.openOutputStream(url);
 
-                thumb.compress(Bitmap.CompressFormat.JPEG, 100, thumbOut);
+                thumb.compress(Bitmap.CompressFormat.PNG, 100, thumbOut);
                 thumbOut.close();
                 return thumb;
             } catch (FileNotFoundException ex) {
@@ -276,7 +276,6 @@ public final class ImageWorkaround {
          * images.  Note that each entry in this directory will have a standard
          * image MIME type as appropriate -- for example, image/jpeg.
          */
-        public static final String CONTENT_TYPE = "vnd.android.cursor.dir/image";
 
         /**
          * The default sort order for this table

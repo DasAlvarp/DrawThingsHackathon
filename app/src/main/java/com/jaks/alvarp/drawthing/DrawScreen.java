@@ -261,6 +261,7 @@ public class DrawScreen extends Activity implements OnClickListener {
                     ///the MediaStore.Images.Media.insertImage() function is the one I'm thinking about
                     //overriding, by copying a good section of the entire class. MOst of it uses public methods, so
                     //this should be somewhat doable, but time consuming, especially for editing one line of code.
+                    //this is exactly what that is.
 
                     if (imgSaved != null)
                     {
