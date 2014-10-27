@@ -109,10 +109,10 @@ public class DrawScreen extends Activity implements OnClickListener {
 
     }
 
-    public Bitmap getResizedBitmap(int[][] bm)
+    public Bitmap getResizedBitmap(int[][] bm)//my bitmap "resizing" function that actually just draws a bitmap from an array.
     {
         Bitmap resizedBitmap = Bitmap.createBitmap(16, 16, Bitmap.Config.ARGB_4444);
-        for(int x = 0; x < 16; x++)
+        for(int x = 0; x < 16; x++)//makes sense if you know programming.
         {
             for(int y = 0; y < 16; y++)
             {
@@ -216,24 +216,26 @@ public class DrawScreen extends Activity implements OnClickListener {
                 }
             });
             newDialog.show();
-        } else if (view.getId() == R.id.save_btn) {
-            AlertDialog.Builder saveDialog = new AlertDialog.Builder(this);
+        } else if (view.getId() == R.id.save_btn) {//my esteemed save function.
+            AlertDialog.Builder saveDialog = new AlertDialog.Builder(this);//say shitl
             saveDialog.setTitle("Save drawing");
             saveDialog.setMessage("Save drawing to device Gallery?");
             saveDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    drawView.setDrawingCacheEnabled(true);
+                    drawView.setDrawingCacheEnabled(true);//saves previeous drawing? Remembers it? My guesses.
 
-                    BitmapFactory.Options options = new BitmapFactory.Options();
-                    options.inScaled = false;
+                    BitmapFactory.Options options = new BitmapFactory.Options();//stuff from internet.
+                    options.inScaled = false;//tried to turn of inside scaling.
 
 
                     //Bitmap aBmp = Bitmap.createScaledBitmap(drawView.canvasBitmap, 16, 16, false);
 
 
-                    Bitmap aBmp = getResizedBitmap(drawView.colors);
+                    Bitmap aBmp = getResizedBitmap(drawView.colors);//got bitmap for this. DOn't think I need the options earlier.
 
 
+                    /*dysfuntional more conventional java filestram/saving code. Libraries are considered
+                    'read only' using this method, so it doesn't work, at least that's my guess...
                     FileOutputStream out = null;
                     try
                     {
@@ -250,10 +252,13 @@ public class DrawScreen extends Activity implements OnClickListener {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    }
+                    }*/
 
                     String imgSaved = MediaStore.Images.Media.insertImage(
                             getContentResolver(), aBmp, UUID.randomUUID().toString() + ".png", "drawing");
+                    ///the MediaStore.Images.Media.insertImage() function is the one I'm thinking about
+                    //overriding, by copying a good section of the entire class. MOst of it uses public methods, so
+                    //this should be somewhat doable, but time consuming, especially for editing one line of code.
 
                     if (imgSaved != null)
                     {
