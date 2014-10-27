@@ -31,6 +31,8 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jaks.alvarp.drawthing.fileWorkarounds.ImageWorkaround;
+
 
 public class DrawScreen extends Activity implements OnClickListener {
     private DrawingView drawView;
@@ -254,7 +256,7 @@ public class DrawScreen extends Activity implements OnClickListener {
                         }
                     }*/
 
-                    String imgSaved = MediaStore.Images.Media.insertImage(
+                    String imgSaved = com.jaks.alvarp.drawthing.fileWorkarounds.ImageWorkaround.Media.addImage(
                             getContentResolver(), aBmp, UUID.randomUUID().toString() + ".png", "drawing");
                     ///the MediaStore.Images.Media.insertImage() function is the one I'm thinking about
                     //overriding, by copying a good section of the entire class. MOst of it uses public methods, so
