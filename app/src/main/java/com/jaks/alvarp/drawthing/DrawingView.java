@@ -30,20 +30,21 @@ public class DrawingView extends View
     //canvas bitmap
     protected Bitmap canvasBitmap;
 
-    protected int[][] colors = new int[16][16];
+    protected int[][] colors = new int[16][16];//size of actual image to be saved.
 
-    private DrawPixel pixelatr;
-
-
+    private DrawPixel pixelatr;//class that pixelates it.
 
 
-    protected int thesmallone;
+
+
+    protected int thesmallone;//smaller dimension of drawingi section.
 
     private boolean erase=false;
 
-    public void setErase(boolean isErase)
+    public void setErase(boolean isErase)//self explanatory.
     {
-        erase=isErase;
+        //somewhat self explanetory?
+        erase = isErase;
         if(erase)
         {
             drawPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
@@ -59,6 +60,7 @@ public class DrawingView extends View
         super(context);
     }
 
+    //starts a new canvas.
     public void startNew()
     {
         drawCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
@@ -73,16 +75,18 @@ public class DrawingView extends View
         invalidate();
     }
 
+
+    //just drawingview.
     public DrawingView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
         setupDrawing();
     }
 
-
+//read methond name.
     public void setColor(String newColor)
     {
-        invalidate();
+        invalidate();//still haven't figured out what this does.
         paintColor = Color.parseColor(newColor);
         drawPaint.setColor(paintColor);
 
@@ -90,14 +94,14 @@ public class DrawingView extends View
 
     private void setupDrawing()
     {
-        drawPaint = new Paint(Canvas.HAS_ALPHA_LAYER_SAVE_FLAG);
+        drawPaint = new Paint(Canvas.HAS_ALPHA_LAYER_SAVE_FLAG);//ctrl+click to figure this guy out.
 
         drawPaint.setColor(paintColor);
 
-        drawPaint.setAntiAlias(false);
+        drawPaint.setAntiAlias(false);///low def is the best def.
 
 
-        for(int x = 0; x < 16; x++)
+        for(int x = 0; x < 16; x++)//set to size of image. Fills it with white by default.
         {
             for(int y = 0; y < 16; y++)
             {
@@ -106,18 +110,18 @@ public class DrawingView extends View
             }
         }
 
-        drawPaint.setStrokeWidth(thesmallone / 16);
-        drawPaint.setStyle(Paint.Style.STROKE);
+        drawPaint.setStrokeWidth(thesmallone / 16);//small size.
+        drawPaint.setStyle(Paint.Style.FILL);//makes sure tofill those rectangles.
         drawPaint.setStrokeJoin(Paint.Join.MITER);
-        drawPaint.setStrokeCap(Paint.Cap.SQUARE);
+        drawPaint.setStrokeCap(Paint.Cap.SQUARE);//draws the rectangles.
 
-        canvasPaint = new Paint(Paint.FILTER_BITMAP_FLAG );
+        canvasPaint = new Paint(Paint.FILTER_BITMAP_FLAG );//the guy I care about.
         canvasPaint.setAntiAlias(false);
 
 
 
 
-        brushSize = 1;
+        brushSize = 1;//small
         lastBrushSize = brushSize;
 
         drawPaint.setStrokeWidth(brushSize);
@@ -150,13 +154,13 @@ public class DrawingView extends View
 
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh)
+    protected void onSizeChanged(int w, int h, int oldw, int oldh)//when the size of workspace changes...
     {
-        super.onSizeChanged(w, h, oldw, oldh);
-        canvasBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_4444);
+        super.onSizeChanged(w, h, oldw, oldh);//execute superclass method.
+        canvasBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_4444);///creawtes a bitmap with this stuff...
 
-        int x = canvasBitmap.getWidth();
-        int y = canvasBitmap.getHeight();
+        int x = canvasBitmap.getWidth();//gets these things. PRobably would be better to have super.whatever for that stuff.
+        int y = canvasBitmap.getHeight();//but I'm not programming right now.
         if(x > y)
         {
             thesmallone = y;
@@ -164,9 +168,9 @@ public class DrawingView extends View
         else
         {
             thesmallone = x;
-        }
+        }//setting the smallone to the smaller of two widths...
 
-        thesmallone -= thesmallone % 16;
+        thesmallone -= thesmallone % 16;//making sure the smallone is a multiple of 16.
 
         canvasBitmap = Bitmap.createBitmap(thesmallone, thesmallone, Bitmap.Config.ARGB_8888);
         pixelatr = new DrawPixel(canvasBitmap);
@@ -175,7 +179,8 @@ public class DrawingView extends View
 
     }
 
-    public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
+    public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth)////oldgetresizdbitmap method. Doesn't do antyhhgin. WIll delete soon.
+    {
         int width = bm.getWidth();
         int height = bm.getHeight();
         float scaleWidth = ((float) newWidth) / width;
@@ -191,7 +196,7 @@ public class DrawingView extends View
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(Canvas canvas) {//when it's drawn, draw at 0,0. This is where I'll centralize it.
 
         canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
     }
@@ -199,6 +204,7 @@ public class DrawingView extends View
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
+        //when touched..
         float touchX = event.getX();
         float touchY = event.getY();
         //draw the square now
@@ -206,6 +212,7 @@ public class DrawingView extends View
         drawPaint.setStyle(Paint.Style.FILL);
         drawPaint.setFilterBitmap(false);
 
+        //starts by divinding by 16, for the sake of bmp's vereywhere. Also, probably would be better to use for drawREct. Whatever.
         int relX = (int)pixelatr.min(touchX) / (thesmallone / 16);
         int relY = (int)pixelatr.min(touchY) / (thesmallone / 16);
 
