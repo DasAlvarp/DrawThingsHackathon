@@ -37,7 +37,7 @@ public class DrawingView extends View
 
 
 
-    protected int thesmallone;//smaller dimension of drawingi section.
+    private int thesmallone;//smaller dimension of drawingi section.
 
     private boolean erase=false;
 
@@ -86,11 +86,34 @@ public class DrawingView extends View
 //read methond name.
     public void setColor(String newColor)
     {
+
+        reUp();
         invalidate();//still haven't figured out what this does.
         paintColor = Color.parseColor(newColor);
         drawPaint.setColor(paintColor);
 
+
+
     }
+
+
+    private void reUp()//draws everything saved.
+    {
+        Paint tempPaint = new Paint();
+        tempPaint.setStyle(Paint.Style.FILL);
+        drawCanvas = new Canvas(canvasBitmap);
+
+        for(int x = 0; x < 16; x++)
+        {
+            for(int y = 0; y < 16; y++)
+            {
+                tempPaint.setColor(colors[x][y]);
+                drawCanvas.drawRect(pixelatr.min(x * thesmallone / 16), pixelatr.max(y * thesmallone / 16), pixelatr.max(x * thesmallone / 16), pixelatr.min(y * thesmallone / 16), tempPaint);
+
+            }
+        }
+    }
+
 
     private void setupDrawing()
     {
@@ -154,44 +177,24 @@ public class DrawingView extends View
 
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh)//when the size of workspace changes...
+    protected void onSizeChanged(int w, int h, int oldw, int oldh)//when the size of workspace changes... WandH need to be there for the override to work.
     {
-        super.onSizeChanged(w, h, oldw, oldh);//execute superclass method.
-        canvasBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_4444);///creawtes a bitmap with this stuff...
-
-        int x1 = canvasBitmap.getWidth();//gets these things. PRobably would be better to have super.whatever for that stuff.
-        int y1 = canvasBitmap.getHeight();//but I'm not programming right now.
-        if(x1 > y1)
+        if(w > h)
         {
-            thesmallone = y1;
+            thesmallone = h;
         }
         else
         {
-            thesmallone = x1;
+            thesmallone = w;
         }//setting the smallone to the smaller of two widths...
 
         thesmallone -= thesmallone % 16;//making sure the smallone is a multiple of 16.
 
         canvasBitmap = Bitmap.createBitmap(thesmallone, thesmallone, Bitmap.Config.ARGB_4444);
         pixelatr = new DrawPixel(canvasBitmap);
+        reUp();
 
-
-
-        Paint tempPaint = new Paint();
-        tempPaint.setStyle(Paint.Style.FILL);
-        drawCanvas = new Canvas(canvasBitmap);
-
-        for(int x = 0; x < 16; x++)
-        {
-            for(int y = 0; y < 16; y++)
-            {
-                tempPaint.setColor(colors[x][y]);
-                drawCanvas.drawRect(pixelatr.min(x * thesmallone / 16), pixelatr.max(y * thesmallone / 16), pixelatr.max(x * thesmallone / 16), pixelatr.min(y), tempPaint);
-
-            }
-        }
-
-        onDraw(drawCanvas);
+       // onDraw(drawCanvas);
 
 
     }
@@ -204,7 +207,7 @@ public class DrawingView extends View
         int newX = canvasBitmap.getHeight();
         int newY = canvasBitmap.getWidth();
 
-        canvas.drawBitmap(canvasBitmap, normalX - newX, ( normalY - newY ) / 4, canvasPaint);//bitmap's width minus normal width. Works this way, because canvas size goes to the corner. That's my guess, anyway.
+        canvas.drawBitmap(canvasBitmap, Math.abs(normalX - newX), Math.abs((normalY - newY) / 4), canvasPaint);//bitmap's width minus normal width. Works this way, because canvas size goes to the corner. That's my guess, anyway.
     }
 
     @Override
@@ -227,12 +230,28 @@ public class DrawingView extends View
         {
             case MotionEvent.ACTION_DOWN://1st pos
                 if(relX < 16 && relX > -1 && relY > -1 && relY < 16)
-                    colors[relX][relY] = drawPaint.getColor();
-                drawCanvas.drawRect(pixelatr.min(touchX), pixelatr.min(touchY + brushSize * thesmallone / 16), pixelatr.min(touchX + brushSize * thesmallone / 16),pixelatr.min(touchY), drawPaint);
+                {
+                    for(int x = 0; x < (int)brushSize; x++)
+                    {
+                        for(int y = 0; y < (int)brushSize; y++)
+                        {
+                            colors[relX + x][relY + y] = drawPaint.getColor();
+                        }
+                    }
+                }
+                drawCanvas.drawRect(pixelatr.min(touchX), pixelatr.min(touchY + brushSize * thesmallone / 16), pixelatr.min(touchX + brushSize * thesmallone / 16), pixelatr.min(touchY), drawPaint);
                 break;
             case MotionEvent.ACTION_MOVE://records the positions and directions.
                 if(relX < 16 && relX > -1 && relY > -1 && relY < 16)
-                    colors[relX][relY] = drawPaint.getColor();
+                {
+                    for(int x = 0; x < (int)brushSize; x++)
+                    {
+                        for(int y = 0; y < (int)brushSize; y++)
+                        {
+                            colors[relX + x][relY + y] = drawPaint.getColor();
+                        }
+                    }
+                }
                 drawCanvas.drawRect(pixelatr.min(touchX), pixelatr.min(touchY + brushSize * thesmallone / 16), pixelatr.min(touchX + brushSize * thesmallone / 16),pixelatr.min(touchY), drawPaint);
                 break;
             case MotionEvent.ACTION_UP://places it.
