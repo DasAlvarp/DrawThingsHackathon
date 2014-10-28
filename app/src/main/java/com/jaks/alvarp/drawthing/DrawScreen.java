@@ -109,6 +109,8 @@ public class DrawScreen extends Activity implements OnClickListener {
             }
         });
 
+
+
     }
 
     public Bitmap getResizedBitmap(int[][] bm)//my bitmap "resizing" function that actually just draws a bitmap from an array.

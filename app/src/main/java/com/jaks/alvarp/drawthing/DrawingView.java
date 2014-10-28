@@ -135,7 +135,7 @@ public class DrawingView extends View
 //        float pixelAmount = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
 //                newSize, getResources().getDisplayMetrics());
         brushSize = newSize;
-        drawPaint.setStrokeWidth(brushSize);
+        //drawPaint.setStrokeWidth(brushSize);
     }
 
     public void setLastBrushSize(float lastSize)
@@ -159,40 +159,41 @@ public class DrawingView extends View
         super.onSizeChanged(w, h, oldw, oldh);//execute superclass method.
         canvasBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_4444);///creawtes a bitmap with this stuff...
 
-        int x = canvasBitmap.getWidth();//gets these things. PRobably would be better to have super.whatever for that stuff.
-        int y = canvasBitmap.getHeight();//but I'm not programming right now.
-        if(x > y)
+        int x1 = canvasBitmap.getWidth();//gets these things. PRobably would be better to have super.whatever for that stuff.
+        int y1 = canvasBitmap.getHeight();//but I'm not programming right now.
+        if(x1 > y1)
         {
-            thesmallone = y;
+            thesmallone = y1;
         }
         else
         {
-            thesmallone = x;
+            thesmallone = x1;
         }//setting the smallone to the smaller of two widths...
 
         thesmallone -= thesmallone % 16;//making sure the smallone is a multiple of 16.
 
-        canvasBitmap = Bitmap.createBitmap(thesmallone, thesmallone, Bitmap.Config.ARGB_8888);
+        canvasBitmap = Bitmap.createBitmap(thesmallone, thesmallone, Bitmap.Config.ARGB_4444);
         pixelatr = new DrawPixel(canvasBitmap);
+
+
+
+        Paint tempPaint = new Paint();
+        tempPaint.setStyle(Paint.Style.FILL);
         drawCanvas = new Canvas(canvasBitmap);
 
+        for(int x = 0; x < 16; x++)
+        {
+            for(int y = 0; y < 16; y++)
+            {
+                tempPaint.setColor(colors[x][y]);
+                drawCanvas.drawRect(pixelatr.min(x * thesmallone / 16), pixelatr.max(y * thesmallone / 16), pixelatr.max(x * thesmallone / 16), pixelatr.min(y), tempPaint);
 
-    }
+            }
+        }
 
-    public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth)////oldgetresizdbitmap method. Doesn't do antyhhgin. WIll delete soon.
-    {
-        int width = bm.getWidth();
-        int height = bm.getHeight();
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-        // CREATE A MATRIX FOR THE MANIPULATION
-        Matrix matrix = new Matrix();
-        // RESIZE THE BIT MAP
-        matrix.postScale(scaleWidth, scaleHeight);
+        onDraw(drawCanvas);
 
-        // "RECREATE" THE NEW BITMAP
-        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
-        return resizedBitmap;
+
     }
 
     @Override
@@ -234,6 +235,8 @@ public class DrawingView extends View
             default:
                 return false;
         }
+
+
         invalidate();
         return true;
 
