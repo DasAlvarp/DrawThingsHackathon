@@ -199,7 +199,12 @@ public class DrawingView extends View
     @Override
     protected void onDraw(Canvas canvas) {//when it's drawn, draw at 0,0. This is where I'll centralize it.
 
-        canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
+        int normalX = this.getHeight();
+        int normalY = this.getWidth();
+        int newX = canvasBitmap.getHeight();
+        int newY = canvasBitmap.getWidth();
+
+        canvas.drawBitmap(canvasBitmap, normalX - newX, ( normalY - newY ) / 4, canvasPaint);//bitmap's width minus normal width. Works this way, because canvas size goes to the corner. That's my guess, anyway.
     }
 
     @Override
