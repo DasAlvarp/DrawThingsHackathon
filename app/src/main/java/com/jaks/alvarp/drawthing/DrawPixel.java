@@ -52,9 +52,9 @@ public class DrawPixel
     public float max(float val)
     {
         float returner =(float) val + (pixelRate - val % pixelRate );
-        if(returner > theBigOne - pixelRate)
+        if(returner > theBigOne)
         {
-            return theBigOne - pixelRate;
+            return theBigOne;
         }
         else if(returner < 0)
         {

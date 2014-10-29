@@ -57,8 +57,10 @@ public class DrawingView extends View {
     //starts a new canvas.
     public void startNew() {
         drawCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
-        for (int x = 0; x < 16; x++) {
-            for (int y = 0; y < 16; y++) {
+        for (int x = 0; x < 16; x++)
+        {
+            for (int y = 0; y < 16; y++)
+            {
                 colors[x][y] = -1;
 
             }
@@ -89,13 +91,14 @@ public class DrawingView extends View {
     {
         Paint tempPaint = new Paint();
         tempPaint.setStyle(Paint.Style.FILL);
-        drawCanvas = new Canvas(canvasBitmap);
 
-        for (int x = 0; x < 16; x++) {
-            for (int y = 0; y < 16; y++) {
+        for (int x = 0; x < 16; x++)
+        {
+            for (int y = 0; y < 16; y++)
+            {
                 tempPaint.setColor(colors[x][y]);
-                drawCanvas.drawRect(pixelatr.min(x * thesmallone / 16), pixelatr.max(y * thesmallone / 16), pixelatr.max(x * thesmallone / 16), pixelatr.min(y * thesmallone / 16), tempPaint);
-
+                drawCanvas.drawRect(pixelatr.min(x * thesmallone / 16), pixelatr.min(y * thesmallone / 16), pixelatr.max(x * thesmallone / 16), pixelatr.max(y * thesmallone / 16), tempPaint);
+                System.out.println(x + "," + y + colors[x][y]);
             }
         }
     }
@@ -155,9 +158,12 @@ public class DrawingView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh)//when the size of workspace changes... WandH need to be there for the override to work.
     {
-        if (w > h) {
+        if (w > h)
+        {
             thesmallone = h;
-        } else {
+        }
+        else
+        {
             thesmallone = w;
         }//setting the smallone to the smaller of two widths...
 
@@ -165,9 +171,8 @@ public class DrawingView extends View {
 
         canvasBitmap = Bitmap.createBitmap(thesmallone, thesmallone, Bitmap.Config.ARGB_4444);
         pixelatr = new DrawPixel(canvasBitmap);
+        drawCanvas = new Canvas(canvasBitmap);
         reUp();
-
-        // onDraw(drawCanvas);
 
 
     }
@@ -188,12 +193,12 @@ public class DrawingView extends View {
     @Override
     protected void onDraw(Canvas canvas) {//when it's drawn, draw at 0,0. This is where I'll centralize it.
 
-        int normalX = this.getHeight();
-        int normalY = this.getWidth();
+        int normalX = canvas.getHeight();
+        int normalY = canvas.getWidth();
         int newX = canvasBitmap.getHeight();
         int newY = canvasBitmap.getWidth();
 
-        canvas.drawBitmap(canvasBitmap, Math.abs(normalX - newX), Math.abs((normalY - newY) / 4), canvasPaint);//bitmap's width minus normal width. Works this way, because canvas size goes to the corner. That's my guess, anyway.
+        canvas.drawBitmap(canvasBitmap, Math.abs(normalX - newX), Math.abs((normalY - newY) / 4), null);//bitmap's width minus normal width. Works this way, because canvas size goes to the corner. That's my guess, anyway.
     }
 
     @Override
@@ -231,7 +236,7 @@ public class DrawingView extends View {
                         }
                     }
                 }
-                drawCanvas.drawRect(pixelatr.min(touchX), pixelatr.min(touchY + brushSize * thesmallone / 16), pixelatr.min(touchX + brushSize * thesmallone / 16), pixelatr.min(touchY), drawPaint);
+                drawCanvas.drawRect(pixelatr.min(touchX), pixelatr.min(touchY), pixelatr.max(touchX + brushSize), pixelatr.max(touchY + brushSize), drawPaint);
                 break;
             case MotionEvent.ACTION_MOVE://records the positions and directions.
                 if (relX < 16 && relX > -1 && relY > -1 && relY < 16)
