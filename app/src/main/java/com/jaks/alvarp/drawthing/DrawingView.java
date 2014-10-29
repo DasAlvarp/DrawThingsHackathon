@@ -30,7 +30,7 @@ public class DrawingView extends View
     //canvas bitmap
     protected Bitmap canvasBitmap;
 
-    protected int[][] colors = new int[16][16];//size of actual image to be saved.
+    private int[][] colors = new int[16][16];//size of actual image to be saved.
 
     private DrawPixel pixelatr;//class that pixelates it.
 
@@ -197,6 +197,20 @@ public class DrawingView extends View
        // onDraw(drawCanvas);
 
 
+    }
+
+    public Bitmap getResizedBitmap()//my bitmap "resizing" function that actually just draws a bitmap from an array.
+    {
+        Bitmap resizedBitmap = Bitmap.createBitmap(16, 16, Bitmap.Config.ARGB_4444);
+        for(int x = 0; x < 16; x++)//makes sense if you know programming.
+        {
+            for(int y = 0; y < 16; y++)
+            {
+                resizedBitmap.setPixel(x, y, colors[x][y]);
+            }
+        }
+        // "RECREATE" THE NEW BITMAP
+        return resizedBitmap;
     }
 
     @Override

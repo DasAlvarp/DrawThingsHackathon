@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 import com.jaks.alvarp.drawthing.fileWorkarounds.ImageWorkaround;
 
+//our team name is the flying mongooses
 
 public class DrawScreen extends Activity implements OnClickListener {
     private DrawingView drawView;
@@ -113,20 +114,7 @@ public class DrawScreen extends Activity implements OnClickListener {
 
     }
 
-    public Bitmap getResizedBitmap(int[][] bm)//my bitmap "resizing" function that actually just draws a bitmap from an array.
-    {
-        Bitmap resizedBitmap = Bitmap.createBitmap(16, 16, Bitmap.Config.ARGB_4444);
-        for(int x = 0; x < 16; x++)//makes sense if you know programming.
-        {
-            for(int y = 0; y < 16; y++)
-            {
 
-                resizedBitmap.setPixel(x, y, bm[x][y]);
-            }
-        }
-        // "RECREATE" THE NEW BITMAP
-        return resizedBitmap;
-    }
 
 
     @Override
@@ -235,7 +223,7 @@ public class DrawScreen extends Activity implements OnClickListener {
                     //Bitmap aBmp = Bitmap.createScaledBitmap(drawView.canvasBitmap, 16, 16, false);
 
 
-                    Bitmap aBmp = getResizedBitmap(drawView.colors);//got bitmap for this. DOn't think I need the options earlier.
+                    Bitmap aBmp = drawView.getResizedBitmap();//got bitmap for this. DOn't think I need the options earlier.
 
 
                     /*dysfuntional more conventional java filestram/saving code. Libraries are considered
@@ -259,7 +247,7 @@ public class DrawScreen extends Activity implements OnClickListener {
                     }*/
 
                     String imgSaved = com.jaks.alvarp.drawthing.fileWorkarounds.ImageWorkaround.Media.addImage(
-                            getContentResolver(), aBmp, UUID.randomUUID().toString() + ".png", "drawing");
+                            getContentResolver(), aBmp, UUID.randomUUID().toString(), "drawing");
                     ///the MediaStore.Images.Media.insertImage() function is the one I'm thinking about
                     //overriding, by copying a good section of the entire class. MOst of it uses public methods, so
                     //this should be somewhat doable, but time consuming, especially for editing one line of code.
