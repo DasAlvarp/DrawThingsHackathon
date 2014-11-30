@@ -24,7 +24,7 @@ public class DrawingView extends View {
     //drawing and canvas paint
     private Paint drawPaint, canvasPaint;
     //initial color
-    private int paintColor = 0xFF660000;
+    private int paintColor = 0XFFFF6666;
     //canvas
     private Canvas drawCanvas;
     //canvas bitmap
@@ -191,14 +191,8 @@ public class DrawingView extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {//when it's drawn, draw at 0,0. This is where I'll centralize it.
-
-        int normalX = canvas.getHeight();
-        int normalY = canvas.getWidth();
-        int newX = canvasBitmap.getHeight();
-        int newY = canvasBitmap.getWidth();
-
-        canvas.drawBitmap(canvasBitmap, Math.abs(normalX - newX), Math.abs((normalY - newY) / 4), null);//bitmap's width minus normal width. Works this way, because canvas size goes to the corner. That's my guess, anyway.
+    protected void onDraw(Canvas canvas) {//when it's drawn, draw at 0,0. This is where I'll centralize it
+        canvas.drawBitmap(canvasBitmap, (canvas.getWidth() - canvasBitmap.getScaledWidth(canvas) ) / 2, (canvas.getHeight() - canvasBitmap.getScaledHeight(canvas) ) / 2, null);//bitmap's width minus normal width. Works this way, because canvas size goes to the corner. That's my guess, anyway.
     }
 
     @Override
@@ -236,7 +230,7 @@ public class DrawingView extends View {
                         }
                     }
                 }
-                drawCanvas.drawRect(pixelatr.min(touchX), pixelatr.min(touchY), pixelatr.max(touchX + brushSize), pixelatr.max(touchY + brushSize), drawPaint);
+                drawCanvas.drawRect(pixelatr.min(touchX), pixelatr.min(touchY + brushSize * thesmallone / 16), pixelatr.min(touchX + brushSize * thesmallone / 16), pixelatr.min(touchY), drawPaint);
                 break;
             case MotionEvent.ACTION_MOVE://records the positions and directions.
                 if (relX < 16 && relX > -1 && relY > -1 && relY < 16)
