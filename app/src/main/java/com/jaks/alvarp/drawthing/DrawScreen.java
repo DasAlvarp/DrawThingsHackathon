@@ -32,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jaks.alvarp.drawthing.fileWorkarounds.ImageWorkaround;
+import com.jaks.alvarp.drawthing.utils.ImageManipulator;
 
 //our team name is the flying mongooses
 
@@ -224,6 +225,15 @@ public class DrawScreen extends Activity implements OnClickListener {
 
 
                     Bitmap aBmp = drawView.getResizedBitmap();//got bitmap for this. DOn't think I need the options earlier.
+
+
+                    //ImageManipulator imap = new ImageManipulator();
+                    //imap.addNoise(aBmp, 100);
+
+
+
+
+
 
 
                     /*dysfuntional more conventional java filestram/saving code. Libraries are considered

@@ -1,4 +1,4 @@
-package com.jaks.alvarp.drawthing;
+package com.jaks.alvarp.drawthing.utils;
 
 import java.util.Random;
 
