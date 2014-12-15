@@ -122,7 +122,7 @@ public class DrawScreen extends Activity implements OnClickListener {
     public void onClick(View view) {
         if (view.getId() == R.id.draw_btn) {
             final Dialog brushDialog = new Dialog(this);
-            brushDialog.setTitle("How big you tryna go:");
+            brushDialog.setTitle("Sizes:");
             brushDialog.setContentView(R.layout.brush_chooser);
 
 
@@ -163,7 +163,7 @@ public class DrawScreen extends Activity implements OnClickListener {
 
         } else if (view.getId() == R.id.erase_btn) {
             final Dialog brushDialog = new Dialog(this);
-            brushDialog.setTitle("Delete ya mistake:");
+            brushDialog.setTitle("Erasers:");
             brushDialog.setContentView(R.layout.brush_chooser);
             ImageButton smallBtn = (ImageButton) brushDialog.findViewById(R.id.small_brush);
             smallBtn.setOnClickListener(new OnClickListener() {
@@ -195,8 +195,8 @@ public class DrawScreen extends Activity implements OnClickListener {
             brushDialog.show();
         } else if (view.getId() == R.id.new_btn) {
             AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
-            newDialog.setTitle("New drawing");
-            newDialog.setMessage("Start new drawing (you will lose the current drawing)?");
+            newDialog.setTitle("Clear Canvas");
+            newDialog.setMessage("Are you sure you want to clear the canvas?");
             newDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     drawView.startNew();
@@ -212,7 +212,7 @@ public class DrawScreen extends Activity implements OnClickListener {
         } else if (view.getId() == R.id.save_btn) {//my esteemed save function.
             AlertDialog.Builder saveDialog = new AlertDialog.Builder(this);//say shitl
             saveDialog.setTitle("Save drawing");
-            saveDialog.setMessage("Save drawing to device Gallery?");
+            saveDialog.setMessage("Save drawing to Gallery?");
             saveDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     drawView.setDrawingCacheEnabled(true);//saves previeous drawing? Remembers it? My guesses.
@@ -272,7 +272,7 @@ public class DrawScreen extends Activity implements OnClickListener {
                     else
                     {
                         Toast unsavedToast = Toast.makeText(getApplicationContext(),
-                                "Oops! Image could not be saved.", Toast.LENGTH_SHORT);
+                                "Sorry! Something went wrong with saving.", Toast.LENGTH_SHORT);
                         unsavedToast.show();
                     }
 
