@@ -98,7 +98,7 @@ public class DrawingView extends View {
             {
                 tempPaint.setColor(colors[x][y]);
                 drawCanvas.drawRect(pixelatr.min(x * thesmallone / 16), pixelatr.min(y * thesmallone / 16), pixelatr.max(x * thesmallone / 16), pixelatr.max(y * thesmallone / 16), tempPaint);
-                System.out.println(x + "," + y + colors[x][y]);
+               // System.out.println(x + "," + y + colors[x][y]);
             }
         }
     }
